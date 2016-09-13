@@ -1,0 +1,23 @@
+{
+  "name": "swipe3d",
+  "version": "1.0.0",
+  "description": "TouchSwipe events library with mouse and 3d swipe/scroll directions support.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linuxenko/swipe3d.git"
+  },
+  "keywords": [
+    "swipe",
+    "touch"
+  ],
+  "author": "Svetlana Linuxenko <linuxenko@yahoo.com> (http://www.linuxenko.pro)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/linuxenko/swipe3d/issues"
+  },
+  "homepage": "https://github.com/linuxenko/swipe3d#readme"
+}
