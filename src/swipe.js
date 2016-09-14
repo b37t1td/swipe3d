@@ -1,16 +1,7 @@
 import {ael, grc} from './tools'
 import {DIR} from './constants'
-/*
- *  @element
- *    DOM element
- *  @options
- *    threshold - int (default 120)
- *    swipeTime - int (default 300)
- *
- */
 
-
-export default class Swipe3d {
+export default class Swipe {
   constructor(element = null, options= {}) {
     if (!element) { throw new Error('Invalid arguments, at least DOM element have to be passed') }
     this.element = element
