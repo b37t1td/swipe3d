@@ -1,5 +1,7 @@
-import {ael, grc} from './tools'
+import {ael, rel, grc} from './tools'
 import {DIR} from './constants'
+
+let touchStart, touchMove, touchEnd
 
 export default class Swipe {
   constructor(element = null, options= {}) {
@@ -12,9 +14,9 @@ export default class Swipe {
 
     this.reinit()
 
-    const touchStart = this.touchStart.bind(this)
-    const touchMove = this.touchMove.bind(this)
-    const touchEnd = this.touchEnd.bind(this)
+    touchStart = this.touchStart.bind(this)
+    touchMove = this.touchMove.bind(this)
+    touchEnd = this.touchEnd.bind(this)
 
     ael(this.element, 'mousedown', touchStart)
     ael(this.element, 'mousemove', touchMove)
@@ -23,6 +25,20 @@ export default class Swipe {
     ael(this.element, 'touchstart', touchStart)
     ael(this.element, 'touchmove', touchMove)
     ael(this.element, 'touchend', touchEnd)
+  }
+
+  destroy() {
+    this.reinit()
+
+    rel(this.element, 'mousedown', touchStart)
+    rel(this.element, 'mousemove', touchMove)
+    rel(this.element, 'mouseup', touchEnd)
+    rel(this.element, 'mouseout', touchEnd)
+    rel(this.element, 'touchstart', touchStart)
+    rel(this.element, 'touchmove', touchMove)
+    rel(this.element, 'touchend', touchEnd)
+
+    this.element = null
   }
 
   reinit() {
