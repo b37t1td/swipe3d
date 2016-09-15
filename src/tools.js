@@ -1,9 +1,17 @@
 function ael(e, n, h){
     if( e.addEventListener ){
         e.addEventListener(n, h, true)
-    }else{
-        e.attachEvent('on'+n, h)
+    } else {
+        e.attachEvent('on' + n, h)
     }
+}
+
+function rel(e, n, h) {
+  if (e.removeEventListener) {
+    e.removeEventListener(n, h, true)
+  } else {
+    e.detachEvent('on' + n, h)
+  }
 }
 
 function grc(e) {
@@ -26,4 +34,4 @@ function grc(e) {
   };
 }
 
-export { ael, grc }
+export { ael, rel, grc }
