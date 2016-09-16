@@ -1,8 +1,6 @@
 import {ael, rel, grc} from './tools'
 import {DIR} from './constants'
 
-let touchStart, touchMove, touchEnd
-
 export default class Swipe {
   constructor(element = null, options= {}) {
     if (!element) { throw new Error('Invalid arguments, at least DOM element have to be passed') }
@@ -14,29 +12,29 @@ export default class Swipe {
 
     this.reinit()
 
-    touchStart = this.touchStart.bind(this)
-    touchMove = this.touchMove.bind(this)
-    touchEnd = this.touchEnd.bind(this)
+    this.touchStartFn = this.touchStart.bind(this)
+    this.touchMoveFn = this.touchMove.bind(this)
+    this.touchEndFn = this.touchEnd.bind(this)
 
-    ael(this.element, 'mousedown', touchStart)
-    ael(this.element, 'mousemove', touchMove)
-    ael(this.element, 'mouseup', touchEnd)
-    ael(this.element, 'mouseout', touchEnd)
-    ael(this.element, 'touchstart', touchStart)
-    ael(this.element, 'touchmove', touchMove)
-    ael(this.element, 'touchend', touchEnd)
+    ael(this.element, 'mousedown', this.touchStartFn)
+    ael(this.element, 'mousemove', this.touchMoveFn)
+    ael(this.element, 'mouseup', this.touchEndFn)
+    ael(this.element, 'mouseout', this.touchEndFn)
+    ael(this.element, 'touchstart', this.touchStartFn)
+    ael(this.element, 'touchmove', this.touchMoveFn)
+    ael(this.element, 'touchend', this.touchEndFn)
   }
 
   destroy() {
     this.reinit()
 
-    rel(this.element, 'mousedown', touchStart)
-    rel(this.element, 'mousemove', touchMove)
-    rel(this.element, 'mouseup', touchEnd)
-    rel(this.element, 'mouseout', touchEnd)
-    rel(this.element, 'touchstart', touchStart)
-    rel(this.element, 'touchmove', touchMove)
-    rel(this.element, 'touchend', touchEnd)
+    rel(this.element, 'mousedown', this.touchStartFn)
+    rel(this.element, 'mousemove', this.touchMoveFn)
+    rel(this.element, 'mouseup', this.touchEndFn)
+    rel(this.element, 'mouseout', this.touchEndFn)
+    rel(this.element, 'touchstart', this.touchStartFn)
+    rel(this.element, 'touchmove', this.touchMoveFn)
+    rel(this.element, 'touchend', this.touchEndFn)
   }
 
   reinit() {
