@@ -37,8 +37,6 @@ export default class Swipe {
     rel(this.element, 'touchstart', touchStart)
     rel(this.element, 'touchmove', touchMove)
     rel(this.element, 'touchend', touchEnd)
-
-    this.element = null
   }
 
   reinit() {
