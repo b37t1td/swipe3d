@@ -34,4 +34,21 @@ function grc(e) {
   };
 }
 
-export { ael, rel, grc }
+function grp(e) {
+  let  offset = {}, ref = e.offsetParent
+
+  offset.left = 0
+  offset.top = 0
+  
+  while(ref) {
+      offset.left += ref.offsetLeft
+      offset.top += ref.offsetTop
+      ref = ref.offsetParent
+  }
+  return {
+      x : offset.left,
+      y : offset.top
+  };
+}
+
+export { ael, rel, grc , grp}
