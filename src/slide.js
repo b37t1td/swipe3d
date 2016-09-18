@@ -1,16 +1,21 @@
-import {ael, rel, grc} from './tools'
+import {ael, rel, grc, grp} from './tools'
 import {DIR} from './constants'
 
-export default class Swipe {
+export default class Slide {
   constructor(element = null, options= {}) {
     if (!element) { throw new Error('Invalid arguments, at least DOM element have to be passed') }
     this.element = element
     this.threshold = options.threshold || 80
-    this.swipeTime = options.swipeTime || 100
-    this.restraint = options.restraint || 100
     this.callback  = options.callback  || function() {}
 
     this.reinit()
+
+    let pos = grp(this.element)
+
+    this.startX = pos.x
+    this.startY = pos.y
+
+    console.log(pos)
 
     this.touchStartFn = this.touchStart.bind(this)
     this.touchMoveFn = this.touchMove.bind(this)
@@ -47,44 +52,17 @@ export default class Swipe {
   }
 
   touchStart(e) {
-    let pos = grc(e)
-
-    this.reinit()
-
-    this.startX = pos.x
-    this.startY = pos.y
     this.startTime = new Date().getTime()
-
     e.preventDefault()
   }
 
   touchMove(e) {
     let time = this.startTime !== 0 ? new Date().getTime() - this.startTime : 0
-    let pos = grc(e)
-
-    if (this.direction === DIR.NONE && time >= this.swipeTime) {
-      this.distX = pos.x - this.startX
-      this.distY = pos.y - this.startY
-
-      if (Math.abs(this.distX) >= this.threshold && Math.abs(this.distY) <= this.restraint) {
-        this.direction = this.distX < 0 ? DIR.LEFT : DIR.RIGHT
-      }
-      else
-      if (Math.abs(this.distY) >= this.threshold && Math.abs(this.distX) <= this.restraint) {
-        this.direction = this.distY < 0 ? DIR.TOP : DIR.BOTTOM
-      }
-    } else if (this.direction !== DIR.NONE){
-      if (this.direction === DIR.LEFT || this.direction === DIR.RIGHT) {
-        this.callback(e, this.direction, pos)
-      } else {
-        this.callback(e, this.direction, pos)
-      }
-      this.reinit()
-    }
+    console.log(e.pageX - this.startX)
     e.preventDefault()
   }
 
   touchEnd() {
-    this.reinit()
+
   }
 }
