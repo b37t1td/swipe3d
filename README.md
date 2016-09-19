@@ -1,6 +1,6 @@
 ### Swipe/Slide/Scroll events library
 
-The purpose of the swipe3d is provide advanced events handling approach.
+The purpose of the swipe3d is provide an advanced events handling.
 
 
 ### TODO
