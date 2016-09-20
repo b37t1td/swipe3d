@@ -8,7 +8,7 @@ The purpose of the swipe3d is provide an advanced events handling.
 Support of events
 
 - [x] Swipe
-- [ ] Slide
+- [x] Slide
 - [ ] Scroll
 
 Custom elements behaviour
