@@ -10,6 +10,8 @@ export default class Scroll {
     this.restraint = options.restraint || 300
     this.callback  = options.callback  || function() {}
     this.direction = options.direction || DIR.HORIZONTAL
+    this.mouse = options.mouse || true
+    this.mouseDelta = options.mouseDelta || 50
 
     this.reinit()
 
@@ -40,6 +42,7 @@ export default class Scroll {
     this.touchStartFn = this.touchStart.bind(this)
     this.touchMoveFn = this.touchMove.bind(this)
     this.touchEndFn = this.touchEnd.bind(this)
+    this.mouseWheel = this.mouseWheel.bind(this)
 
     ael(window, 'mousedown', this.touchStartFn)
     ael(window, 'mousemove', this.touchMoveFn)
@@ -48,6 +51,10 @@ export default class Scroll {
     ael(window, 'touchstart', this.touchStartFn)
     ael(window, 'touchmove', this.touchMoveFn)
     ael(window, 'touchend', this.touchEndFn)
+
+    if (this.mouse === true) {
+      ael(window, 'wheel', this.mouseWheel)
+    }
   }
 
 
@@ -66,12 +73,33 @@ export default class Scroll {
     rel(window, 'touchstart', this.touchStartFn)
     rel(window, 'touchmove', this.touchMoveFn)
     rel(window, 'touchend', this.touchEndFn)
+
+    if (this.mouse === true) {
+      rel(window, 'wheel', this.mouseWheel)
+    }
   }
 
   reinit() {
     this.start = false
     this.starPos = 0
     this.startTime = null
+  }
+
+  mouseWheel(e) {
+    if (this.direction === DIR.VERTICAL) {
+      this.initial = parseInt(this.element.style.top)
+    } else {
+      this.initial = parseInt(this.element.style.left)
+    }
+
+    let delta = e.deltaY > 0 ?
+     (this.mouseDelta + this.initial) : (this.initial - this.mouseDelta)
+
+    this.startPos = this.initial
+
+    this.moveElementTo(delta, true)
+
+    e.preventDefault()
   }
 
   touchStart(e) {
