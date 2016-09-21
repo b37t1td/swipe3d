@@ -35,7 +35,7 @@ export default class Scroll {
     }
 
     this.elementStop = (this.elementLen - this.element.offsetWidth) * -1
-    this.setDuration('.1s')
+    this.setDuration('.0s')
 
     this.touchStartFn = this.touchStart.bind(this)
     this.touchMoveFn = this.touchMove.bind(this)
@@ -119,7 +119,7 @@ export default class Scroll {
 
     this.setDuration('.3s', 'ease-out')
     setTimeout(() => {
-      this.setDuration('.1s')
+      this.setDuration('.0s')
     }, 300)
     this.moveElementTo(delta, true)
   }
