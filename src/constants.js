@@ -4,8 +4,10 @@ const DIR = {
    RIGHT : Symbol(),
    TOP : Symbol(),
    BOTTOM : Symbol(),
-   isVertical : (dir) => dir === DIR.TOP || dir === DIR.BOTTOM,
-   isHorisontal : (dir) => dir === DIR.LEFT || dir === DIR.RIGHT,
+   VERTICAL : Symbol(),
+   HORIZONTAL : Symbol(),
+   isVertical : (dir) => dir === DIR.TOP || dir === DIR.BOTTOM || dir === DIR.VERTICAL,
+   isHorisontal : (dir) => dir === DIR.LEFT || dir === DIR.RIGHT || dir === DIR.HORIZONTAL,
    toString : (direction) => Object.keys(DIR).filter((k => direction === DIR[k])).join()
 }
 

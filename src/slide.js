@@ -9,7 +9,6 @@ export default class Slide {
     this.restraint = options.restraint || 100
     this.callback  = options.callback  || function() {}
     this.direction = options.direction || DIR.BOTTOM
-    this.slideOffset = options.slideOffset || 0
     this.shrink    = options.shrink || 0
 
     this.reinit()
