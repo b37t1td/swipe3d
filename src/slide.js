@@ -1,17 +1,19 @@
-import {ael, rel, grc, grp} from './tools'
-import {DIR} from './constants'
+import {ael, rel, grp, ev, isParent} from './tools'
+import {DIR, ACTION} from './constants'
 
 export default class Slide {
   constructor(element = null, options= {}) {
     if (!element) { throw new Error('Invalid arguments, at least DOM element have to be passed') }
     this.element = element
     this.threshold = options.threshold || 150
+    this.restraint = options.restraint || 100
     this.callback  = options.callback  || function() {}
     this.direction = options.direction || DIR.BOTTOM
     this.slideOffset = options.slideOffset || 0
     this.shrink    = options.shrink || 0
 
     this.reinit()
+    this.state = ACTION.INITIAL
 
     this.distX = 0
     this.distY = 0
@@ -58,17 +60,19 @@ export default class Slide {
   reinit() {
     this.start = false
     this.starPos = 0
+    this.startTime = new Date().getTime()
   }
 
   touchStart(e) {
-    if (e.srcElement === this.element) {
+    if (isParent(e.target, this.element)) {
       this.start = true
+      this.startTime = new Date().getTime()
 
       if (DIR.isVertical(this.direction)) {
-        this.startPos = e.pageY
+        this.startPos = ev(e).y
         this.initial = parseInt(this.element.style.top)
       } else {
-        this.startPos = e.pageX
+        this.startPos = ev(e).x
         this.initial = parseInt(this.element.style.left)
       }
     }
@@ -85,21 +89,35 @@ export default class Slide {
 
   touchEnd(e) {
     if (this.start === true) {
-      this.moveElement(e, true)
+      if (new Date().getTime() - this.startTime > this.restraint) {
+       this.moveElement(e, true)
+      }
       this.reinit()
     }
   }
 
-  elementTo(offset) {
+  elementTo(offset, isEnd = false) {
     if (DIR.isVertical(this.direction)) {
       this.element.style.top = offset + 'px'
     } else {
       this.element.style.left = offset + 'px'
     }
+
+    if (isEnd === true) {
+      if (offset === this.elementInitial && this.state !== ACTION.INITIAL) {
+        this.state = ACTION.INITIAL
+        this.callback(this.state)
+      }
+
+      if (offset === this.shrink && this.state !== ACTION.SHRINK) {
+        this.state = ACTION.SHRINK
+        this.callback(this.state)
+      }
+    }
   }
 
-  handleVertical(e, isEnd = false) {
-    const cur = DIR.isVertical(this.direction)? e.pageY : e.pageX
+  moveElement(e, isEnd = false) {
+    const cur = DIR.isVertical(this.direction)? ev(e).y: ev(e).x
     const til = cur - this.startPos
     let offset = this.initial + til
     let skipmove = false
@@ -131,30 +149,19 @@ export default class Slide {
         ) && isEnd === true)
        {
          if (Math.abs(til) >= this.threshold) {
-           this.elementTo(this.elementInitial)
+           this.elementTo(this.elementInitial, isEnd)
          } else {
-           this.elementTo(this.shrink)
+           this.elementTo(this.shrink, isEnd)
          }
       } else if (isEnd === true) {
         if (Math.abs(til) <= this.threshold) {
-          this.elementTo(this.elementInitial)
+          this.elementTo(this.elementInitial, isEnd)
         } else {
-          this.elementTo(this.shrink)
+          this.elementTo(this.shrink, isEnd)
         }
-      } else {
-        this.elementTo(offset)
       }
     } else {
         this.elementTo(offset)
-    }
-  }
-
-
-  moveElement(e, isEnd = false) {
-    if (DIR.isVertical(this.direction) === true) {
-      this.handleVertical(e, isEnd)
-    } else {
-      this.handleVertical(e, isEnd)
     }
   }
 }

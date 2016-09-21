@@ -14,6 +14,19 @@ function rel(e, n, h) {
   }
 }
 
+function isParent(src, parent) {
+  let ref = src
+
+ while(ref) {
+    if (ref === parent) {
+      return true
+    } else {
+      ref = ref.parentNode
+    }
+  }
+  return false
+}
+
 function grc(e) {
   let pos = {}, offset = {}, ref = e.target
 
@@ -34,12 +47,18 @@ function grc(e) {
   };
 }
 
+function ev(e) {
+  let x = !! e.touches ? e.changedTouches ? e.changedTouches[0].pageX : e.touches[ 0 ].pageX : e.pageX
+  let y = !! e.touches ? e.changedTouches ? e.changedTouches[0].pageY : e.touches[ 0 ].pageY : e.pageY
+  return {x,y}
+}
+
 function grp(e) {
   let  offset = {}, ref = e.offsetParent
 
   offset.left = 0
   offset.top = 0
-  
+
   while(ref) {
       offset.left += ref.offsetLeft
       offset.top += ref.offsetTop
@@ -51,4 +70,4 @@ function grp(e) {
   };
 }
 
-export { ael, rel, grc , grp}
+export { ael, rel, grc , grp, ev, isParent}

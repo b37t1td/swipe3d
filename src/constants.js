@@ -9,4 +9,10 @@ const DIR = {
    toString : (direction) => Object.keys(DIR).filter((k => direction === DIR[k])).join()
 }
 
-export {DIR}
+const ACTION = {
+  INITIAL : Symbol(),
+  SHRINK : Symbol(),
+  toString : (action) => Object.keys(ACTION).filter((k => action === ACTION[k])).join()
+}
+
+export {DIR, ACTION}
