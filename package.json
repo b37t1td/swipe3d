@@ -13,7 +13,13 @@
   },
   "keywords": [
     "swipe",
-    "touch"
+    "touch",
+    "mobile events",
+    "swipe",
+    "slide events",
+    "carousel",
+    "scroll",
+    "mouse wheel"
   ],
   "files": [
     "LICENSE",
