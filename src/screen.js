@@ -6,7 +6,7 @@ export default class Screen {
   constructor(element = null, options= {}) {
     if (!element) { throw new Error('Invalid arguments, at least DOM element have to be passed') }
     this.element = element
-    this.threshold = options.threshold || 150
+    this.threshold = options.threshold || 120
     this.restraint = options.restraint || 300
     this.callback  = options.callback  || function() {}
     this.direction = options.direction || DIR.HORIZONTAL
@@ -144,7 +144,11 @@ export default class Screen {
     let offset = this.initial + til
 
     if (isEnd === true) {
-      offset =  Math.round(offset / this.elementWidth) * this.elementWidth
+      if (Math.abs(til) >= this.threshold) {
+        offset = (til < 0 ? (this.currentScreen - 1) : this.currentScreen + 1) * this.elementWidth
+      } else {
+        offset =  Math.round(offset / this.elementWidth) * this.elementWidth
+      }
     }
 
     if (isEnd === true && offset > this.elementInitial) {
