@@ -91,7 +91,7 @@ export default class Scroll {
       this.initial = parseInt(this.element.style.left)
     }
 
-    let delta = e.deltaY > 0 ?
+    let delta = e.deltaY < 0 ?
      (this.mouseDelta + this.initial) : (this.initial - this.mouseDelta)
 
     this.startPos = this.initial
