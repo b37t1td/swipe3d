@@ -16,7 +16,7 @@ export default class Screen {
     this.reinit()
     this.resize()
 
-    this.currentScreen = null
+    this.currentScreen = 0
 
     this.touchStartFn = this.touchStart.bind(this)
     this.touchMoveFn = this.touchMove.bind(this)
@@ -53,7 +53,7 @@ export default class Screen {
         .reduce((p,c) => p + c.offsetWidth , 0)
     }
 
-    this.elementWidth = this.element.offsetWidth
+    this.elementWidth = this.element.parentNode.offsetWidth
     this.elementStop = (this.elementLen - this.elementWidth) * -1
     this.mouseDelta = this.elementWidth / 2  + 1
   }
@@ -145,6 +145,7 @@ export default class Screen {
 
     if (isEnd === true) {
       if (Math.abs(til) >= this.threshold) {
+        console.log(this.elementWidth)
         offset = (til < 0 ? (this.currentScreen - 1) : this.currentScreen + 1) * this.elementWidth
       } else {
         offset =  Math.round(offset / this.elementWidth) * this.elementWidth
