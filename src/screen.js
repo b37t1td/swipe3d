@@ -145,7 +145,6 @@ export default class Screen {
 
     if (isEnd === true) {
       if (Math.abs(til) >= this.threshold) {
-        console.log(this.elementWidth)
         offset = (til < 0 ? (this.currentScreen - 1) : this.currentScreen + 1) * this.elementWidth
       } else {
         offset =  Math.round(offset / this.elementWidth) * this.elementWidth
