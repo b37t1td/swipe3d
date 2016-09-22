@@ -10,4 +10,7 @@ Support of events
 - [x] Swipe
 - [x] Slide
 - [x] Scroll
-- [ ] Screen
+- [x] Screen
+
+- [ ] Examples / screencasts
+- [ ] Documentation
