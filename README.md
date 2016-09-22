@@ -9,14 +9,5 @@ Support of events
 
 - [x] Swipe
 - [x] Slide
-- [ ] Scroll
-
-Custom elements behaviour
-
-- [ ] Swipe
-- [ ] Slide
-- [ ] Scroll
-- [ ] Slick
-
-
-- [ ] Documentation and examples
+- [x] Scroll
+- [ ] Screen

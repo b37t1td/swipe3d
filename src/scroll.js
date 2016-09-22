@@ -14,29 +14,8 @@ export default class Scroll {
     this.mouseDelta = options.mouseDelta || 50
 
     this.reinit()
+    this.resize()
 
-    this.distX = 0
-    this.distY = 0
-
-    this.parent = grp(this.element)
-
-    if (this.direction === DIR.VERTICAL) {
-      if (isNaN(parseInt(this.element.style.top)) || parseInt(this.element.style.top) === 0 ) {
-        this.element.style.top = this.element.offsetTop + 'px'
-      }
-      this.elementInitial = parseInt(this.element.style.top)
-      this.elementLen = [].slice.call(this.element.children)
-        .reduce((p,c) => p + c.offsetHeight , 0)
-    } else {
-      if (isNaN(parseInt(this.element.style.left)) || parseInt(this.element.style.left) === 0 ) {
-        this.element.style.left = this.element.offsetLeft + 'px'
-      }
-      this.elementInitial = parseInt(this.element.style.left)
-      this.elementLen = [].slice.call(this.element.children)
-        .reduce((p,c) => p + c.offsetWidth , 0)
-    }
-
-    this.elementStop = (this.elementLen - this.element.offsetWidth) * -1
     this.setDuration('.0s')
 
     this.touchStartFn = this.touchStart.bind(this)
@@ -55,6 +34,26 @@ export default class Scroll {
     if (this.mouse === true) {
       ael(window, 'wheel', this.mouseWheel)
     }
+  }
+
+  resize() {
+    if (this.direction === DIR.VERTICAL) {
+      if (isNaN(parseInt(this.element.style.top)) || parseInt(this.element.style.top) === 0 ) {
+        this.element.style.top = this.element.offsetTop + 'px'
+      }
+      this.elementInitial = parseInt(this.element.style.top)
+      this.elementLen = [].slice.call(this.element.children)
+        .reduce((p,c) => p + c.offsetHeight , 0)
+    } else {
+      if (isNaN(parseInt(this.element.style.left)) || parseInt(this.element.style.left) === 0 ) {
+        this.element.style.left = this.element.offsetLeft + 'px'
+      }
+      this.elementInitial = parseInt(this.element.style.left)
+      this.elementLen = [].slice.call(this.element.children)
+        .reduce((p,c) => p + c.offsetWidth , 0)
+    }
+
+    this.elementStop = (this.elementLen - this.element.offsetWidth) * -1
   }
 
 
