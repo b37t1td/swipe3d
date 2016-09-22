@@ -44,6 +44,13 @@ export default class Scroll {
       this.elementInitial = parseInt(this.element.style.top)
       this.elementLen = [].slice.call(this.element.children)
         .reduce((p,c) => p + c.offsetHeight , 0)
+
+      if (this.element.offsetHeight === this.elementLen) {
+        this.elementStop = (this.elementLen - this.element.parentNode.offsetHeight) * -1
+      } else {
+        this.elementStop = (this.elementLen - this.element.offsetHeight) * -1
+      }
+
     } else {
       if (isNaN(parseInt(this.element.style.left)) || parseInt(this.element.style.left) === 0 ) {
         this.element.style.left = this.element.offsetLeft + 'px'
@@ -51,9 +58,14 @@ export default class Scroll {
       this.elementInitial = parseInt(this.element.style.left)
       this.elementLen = [].slice.call(this.element.children)
         .reduce((p,c) => p + c.offsetWidth , 0)
-    }
 
-    this.elementStop = (this.elementLen - this.element.offsetWidth) * -1
+      if (this.element.offsetWidth === this.elementLen) {
+        this.elementStop = (this.elementLen - this.element.parentNode.offsetWidth) * -1
+      } else {
+        this.elementStop = (this.elementLen - this.element.offsetWidth) * -1
+      }
+    }
+    console.log(this.elementStop)
   }
 
 

@@ -53,7 +53,13 @@ export default class Screen {
         .reduce((p,c) => p + c.offsetWidth , 0)
     }
 
-    this.elementWidth = this.element.parentNode.offsetWidth
+
+    if (this.element.offsetWidth === this.elementLen) {
+      this.elementWidth = this.element.parentNode.offsetWidth
+    } else {
+      this.elementWidth = this.element.offsetWidth
+    }
+    
     this.elementStop = (this.elementLen - this.elementWidth) * -1
     this.mouseDelta = this.elementWidth / 2  + 1
   }
