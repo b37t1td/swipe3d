@@ -65,7 +65,6 @@ export default class Scroll {
         this.elementStop = (this.elementLen - this.element.offsetWidth) * -1
       }
     }
-    console.log(this.elementStop)
   }
 
 
