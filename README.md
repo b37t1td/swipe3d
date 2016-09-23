@@ -1,8 +1,8 @@
 ### Swipe/Slide/Scroll events library
 
-The purpose of the swipe3d is provide an advanced events handling.
+The purpose of the swipe3d is provide an advanced events handling. [Samples source code](https://github.com/c0ncept/swipe3d-samples).
 
-#### Swipe3d provides following components:
+### Swipe3d provides following components:
   * Swipable [Screen Component](#screen)
   * [Swipe events](#swipe) handling
   * Swipable [Slide Component](#slide)
