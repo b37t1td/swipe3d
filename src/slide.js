@@ -1,4 +1,4 @@
-import {ael, rel, grp, ev, isParent} from './tools'
+import {ael, rel,  ev, isParent} from './tools'
 import {DIR, ACTION} from './constants'
 
 export default class Slide {
@@ -17,8 +17,6 @@ export default class Slide {
     this.distX = 0
     this.distY = 0
 
-    this.parent = grp(this.element)
-
     if (DIR.isVertical(this.direction)) {
       if (isNaN(parseInt(this.element.style.top)) || parseInt(this.element.style.top) === 0 ) {
         this.element.style.top = this.element.offsetTop + 'px'
@@ -31,6 +29,7 @@ export default class Slide {
       this.elementInitial = parseInt(this.element.style.left)
     }
 
+    this.setDuration('.1s')
     this.touchStartFn = this.touchStart.bind(this)
     this.touchMoveFn = this.touchMove.bind(this)
     this.touchEndFn = this.touchEnd.bind(this)
@@ -44,6 +43,11 @@ export default class Slide {
     ael(window, 'touchend', this.touchEndFn)
   }
 
+
+  setDuration(duration, easing = 'ease') {
+    const direction = DIR.isHorisontal(this.direction) ? 'left' : 'top'
+    this.element.style.transition = `${direction} ${duration} ${easing}`
+  }
   destroy() {
     this.reinit()
 
@@ -141,6 +145,8 @@ export default class Slide {
       skipmove = true
     }
 
+
+
     if ((Math.abs(til) >= this.threshold || isEnd === true) && skipmove === false) {
       if ( (
         (cur < this.startPos && (this.direction === DIR.BOTTOM || this.direction === DIR.LEFT)) ||
@@ -158,6 +164,8 @@ export default class Slide {
         } else {
           this.elementTo(this.shrink, isEnd)
         }
+      } else {
+        this.elementTo(offset)
       }
     } else {
         this.elementTo(offset)
