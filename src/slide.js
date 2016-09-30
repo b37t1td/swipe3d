@@ -165,10 +165,10 @@ export default class Slide {
           this.elementTo(this.shrink, isEnd)
         }
       } else {
-        this.elementTo(offset)
+        this.elementTo(offset, isEnd)
       }
     } else {
-        this.elementTo(offset)
+        this.elementTo(offset, isEnd)
     }
   }
 }
